@@ -31,7 +31,7 @@ public class LevelCamera : MonoBehaviour
 	// Use this for initialization
 	protected void Start () 
 	{
-		Vector3 startPosition = new Vector3(13.34303f, 11.51588f, -10f);
+		Vector3 startPosition = new Vector3(121.43514f, 11.51588f, -10f);
 		transform.position = startPosition; 
 		CheckpointPosition = startPosition;
 		
