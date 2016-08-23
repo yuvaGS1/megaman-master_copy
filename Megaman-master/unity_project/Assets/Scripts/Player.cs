@@ -218,6 +218,10 @@ public class Player : MonoBehaviour
 
 	// 
 	protected IEnumerator WaitAndResetRoutine() {
+
+		yield return new WaitForSeconds (3);
+		Application.LoadLevel(4);
+
 		// Before the wait... 
 		health.IsDead = true;
 		movement.IsFrozen = true;
@@ -352,6 +356,8 @@ public class Player : MonoBehaviour
 	{
 		StartCoroutine(CreateDeathParticles(transform.position));
 		StartCoroutine(WaitAndResetRoutine());
+		Debug.Log ("died");
+
 	}
 	
 	// 
