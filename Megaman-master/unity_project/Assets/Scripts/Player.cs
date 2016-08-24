@@ -3,10 +3,16 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
+
 
 public class Player : MonoBehaviour
 {
 	#region Variables
+
+	public GameObject power;
+	public int count = 0;
+	private Text theText;
 
 	// Unity Editor Variables
 	[SerializeField] protected Rigidbody deathParticlePrefab;
@@ -75,8 +81,12 @@ public class Player : MonoBehaviour
 		IsPlayerInactive = false;
 		health.HealthbarPosition = new Vector2(10,10);
 		health.ShowHealthBar = true;
+		GameObject.Find ("powerpack").transform.localScale = new Vector3(0, 0, 0);
 	}
-
+	void FixedUpdate () 
+	{
+		PowerPacks();
+	}
 	// Update is called once per frame 
 	protected void Update()
 	{
@@ -84,10 +94,10 @@ public class Player : MonoBehaviour
 		{
 			// Handle the horizontal and Vertical movements
 			movement.HandleMovement();
-			
+
 			// Handle shooting
 			if((Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.LeftShift)) && shooting.CanShoot == true)
-			{
+			{   
 				shooting.Shoot(movement.IsTurningLeft);
 				GameEngine.SoundManager.Play(AirmanLevelSounds.SHOOTING);
 			}
@@ -104,7 +114,25 @@ public class Player : MonoBehaviour
 			
 			// Assign the appropriate texture to the player...
 			AssignTexture();
-			
+
+			if (Input.GetKeyDown (KeyCode.S)) 
+			{
+				GameObject.Find("powerpack").GetComponent<Text>().text = count.ToString();
+				GameObject.Find ("powerpack").transform.localScale = new Vector3(1 ,1 ,1);
+				if(count == 9)
+				{
+					
+					count = 0;
+				}
+				else
+				{
+					Debug.Log ("display");
+					count = count + 1;
+				}
+				StartCoroutine(PowerLayers ());
+			}
+
+
 			if (transform.position.z != 0)
 			{
 				Vector3 pos = transform.position;
@@ -113,6 +141,77 @@ public class Player : MonoBehaviour
 			}
 		}
 	}
+
+
+	private void PowerPacks()
+	{
+		if (Input.GetKeyDown (KeyCode.Alpha0)) 
+		{
+			GameObject.Find("powerpack").GetComponent<Text>().text = "0";
+			GameObject.Find ("powerpack").transform.localScale = new Vector3(1 ,1 ,1);
+			StartCoroutine(PowerLayers ());
+		}
+		if (Input.GetKeyDown (KeyCode.Alpha1)) 
+		{
+			GameObject.Find("powerpack").GetComponent<Text>().text = "1";
+			GameObject.Find ("powerpack").transform.localScale = new Vector3(1 ,1 ,1);
+			StartCoroutine(PowerLayers ());
+		}
+		if (Input.GetKeyDown (KeyCode.Alpha2)) 
+		{
+			GameObject.Find("powerpack").GetComponent<Text>().text = "2";
+			GameObject.Find ("powerpack").transform.localScale = new Vector3(1 ,1 ,1);
+			StartCoroutine(PowerLayers ());
+		}
+		if (Input.GetKeyDown (KeyCode.Alpha3)) 
+		{
+			GameObject.Find("powerpack").GetComponent<Text>().text = "3";
+			GameObject.Find ("powerpack").transform.localScale = new Vector3(1 ,1 ,1);
+			StartCoroutine(PowerLayers ());
+		}
+		if (Input.GetKeyDown (KeyCode.Alpha4)) 
+		{
+			GameObject.Find("powerpack").GetComponent<Text>().text = "4";
+			GameObject.Find ("powerpack").transform.localScale = new Vector3(1 ,1 ,1);
+			StartCoroutine(PowerLayers ());
+		}
+		if (Input.GetKeyDown (KeyCode.Alpha5)) 
+		{
+			GameObject.Find("powerpack").GetComponent<Text>().text = "5";
+			GameObject.Find ("powerpack").transform.localScale = new Vector3(1 ,1 ,1);
+			StartCoroutine(PowerLayers ());
+		}
+		if (Input.GetKeyDown (KeyCode.Alpha6)) 
+		{
+			GameObject.Find("powerpack").GetComponent<Text>().text = "6";
+			GameObject.Find ("powerpack").transform.localScale = new Vector3(1 ,1 ,1);
+			StartCoroutine(PowerLayers ());
+		}
+		if (Input.GetKeyDown (KeyCode.Alpha7)) 
+		{
+			GameObject.Find("powerpack").GetComponent<Text>().text = "7";
+			GameObject.Find ("powerpack").transform.localScale = new Vector3(1 ,1 ,1);
+			StartCoroutine(PowerLayers ());
+		}
+		if (Input.GetKeyDown (KeyCode.Alpha8)) 
+		{
+			GameObject.Find("powerpack").GetComponent<Text>().text = "8";
+			GameObject.Find ("powerpack").transform.localScale = new Vector3(1 ,1 ,1);
+			StartCoroutine(PowerLayers ());
+		}
+		if (Input.GetKeyDown (KeyCode.Alpha9)) 
+		{
+			GameObject.Find("powerpack").GetComponent<Text>().text = "9";
+			GameObject.Find ("powerpack").transform.localScale = new Vector3(1 ,1 ,1);
+			StartCoroutine(PowerLayers ());
+		}
+	}
+	IEnumerator PowerLayers()
+	{
+		yield return new WaitForSeconds(5);
+		GameObject.Find ("powerpack").transform.localScale = new Vector3(0, 0, 0);
+	}
+
 
 	// Called when the behaviour becomes disabled or inactive
 	protected void OnDisable()
