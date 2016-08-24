@@ -2,10 +2,13 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class ElectricRobot : MonoBehaviour 
 {
 	#region Variables
+
+	public int p_score;
 
 	// Unity Editor Variables
 	[SerializeField] protected Rigidbody electricShot;
@@ -51,6 +54,7 @@ public class ElectricRobot : MonoBehaviour
 	// Use this for initialization 
 	protected void Start()
 	{
+		p_score = PlayerPrefs.GetInt ("P_Score");
 		texScale = texScaleLeft;
 		currentHealth = health;
 	}
@@ -84,6 +88,10 @@ public class ElectricRobot : MonoBehaviour
 	protected void KillRobot()
 	{
 		isDead = true;
+		p_score = PlayerPrefs.GetInt ("P_Score");
+		p_score = p_score + 10;
+		PlayerPrefs.SetInt("P_Score", p_score);
+		Debug.Log(PlayerPrefs.GetInt ("P_Score"));
 		col.enabled = false;
 	}
 	
@@ -102,7 +110,8 @@ public class ElectricRobot : MonoBehaviour
 		GameEngine.SoundManager.Play(AirmanLevelSounds.BOSS_HURTING);
 		currentHealth -= damageTaken;
 		if (currentHealth <= 0)
-		{
+		{	
+			Debug.Log("dying");
 			KillRobot();
 		}
 	}

@@ -9,11 +9,12 @@ public class Score : MonoBehaviour {
 	
 	void Start () {
 		theText = GetComponent<Text>();
-		Debug.Log(PlayerPrefs.GetInt ("score"));
+	//	Debug.Log(PlayerPrefs.GetInt ("score"));
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		theText.text = "" + Mathf.Round (PlayerPrefs.GetInt ("score"));
+		//PlayerPrefs.SetInt ("P_Score", 0);
+		theText.text = "" + Mathf.Round (PlayerPrefs.GetInt ("P_Score"));
 	}
 }

@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
 {
 	#region Variables
 
+	public int p_score;
 	public GameObject power;
 	public int count = 0;
 	private Text theText;
@@ -78,6 +79,7 @@ public class Player : MonoBehaviour
 	// Use this for initialization 
 	protected void Start()
 	{
+		p_score = PlayerPrefs.GetInt ("P_Score");
 		IsPlayerInactive = false;
 		health.HealthbarPosition = new Vector2(10,10);
 		health.ShowHealthBar = true;
@@ -468,6 +470,12 @@ public class Player : MonoBehaviour
 			GameEngine.SoundManager.Play(AirmanLevelSounds.HURTING);
 			health.ChangeHealth(-damage);
 			movement.IsHurting = true;
+			p_score = PlayerPrefs.GetInt ("P_Score");
+			if(p_score == 0){}
+			else { p_score = p_score - 10; }
+			PlayerPrefs.SetInt("P_Score", p_score);
+			Debug.Log(PlayerPrefs.GetInt ("P_Score"));
+			Debug.Log("its attacking");
 			
 			if (health.IsDead == true)
 			{
