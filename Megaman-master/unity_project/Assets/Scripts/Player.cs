@@ -98,7 +98,7 @@ public class Player : MonoBehaviour
 			movement.HandleMovement();
 
 			// Handle shooting
-			if((Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.LeftShift)) && shooting.CanShoot == true)
+			if((Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Z)) || (Input.GetKeyDown(KeyCode.A)) || (Input.GetKeyDown(KeyCode.B)) && shooting.CanShoot == true)
 			{   
 				shooting.Shoot(movement.IsTurningLeft);
 				GameEngine.SoundManager.Play(AirmanLevelSounds.SHOOTING);
