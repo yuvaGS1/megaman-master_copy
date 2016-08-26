@@ -33,11 +33,13 @@ public class Shooting : MonoBehaviour
 	// Update is called once per frame 
 	protected void Update()
 	{
+		//shooting process 2
 		if (IsShooting == true)
 		{
 			if (Time.time - shootingTimer >= delayBetweenShots)
 			{
 				IsShooting = false;	
+				Debug.Log("shooting");
 			}
 		}
 	}
@@ -54,7 +56,7 @@ public class Shooting : MonoBehaviour
 		IsShooting = false;
 	}
 	
-	//
+	//shooting process 1
 	public void Shoot(bool isTurningLeft)
 	{
 		IsShooting = true;
@@ -65,7 +67,9 @@ public class Shooting : MonoBehaviour
 		Rigidbody rocketRBody = rocketObj.GetComponent<Rigidbody>();
 		rocketRBody.transform.Rotate(90,0,0);
 		Physics.IgnoreCollision(rocketRBody.GetComponent<Collider>(), GetComponent<Collider>());
-		
+
+
+
 		Shot s = rocketRBody.GetComponent<Shot>();
 		s.VelocityDirection = (isTurningLeft == true) ? -transform.right : transform.right;
 		s.ShotSpeed = shotSpeed;

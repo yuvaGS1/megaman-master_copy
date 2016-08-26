@@ -51,9 +51,11 @@ public class Movement : MonoBehaviour
 	
 	#region Protected Functions
 
-	//
+	//applying gravity forces
 	protected void ApplyGravity()
 	{
+
+		Debug.Log("isgrounded");
 		if (moveVector.y > -terminalVelocity)
 		{
 			moveVector = new Vector3(moveVector.x, (moveVector.y - gravity * Time.deltaTime), moveVector.z);

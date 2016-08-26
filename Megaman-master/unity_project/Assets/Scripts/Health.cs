@@ -80,7 +80,7 @@ public class Health : MonoBehaviour
 		healthbar.HealthStatus = startHealth / MaximumHealth;
 	}
 	
-	// 
+	// health reduction
 	public void ChangeHealth(float healthChange)
 	{
 		IsHurting = true;

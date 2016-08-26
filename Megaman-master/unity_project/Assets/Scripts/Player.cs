@@ -85,6 +85,7 @@ public class Player : MonoBehaviour
 		health.ShowHealthBar = true;
 		GameObject.Find ("powerpack").transform.localScale = new Vector3(0, 0, 0);
 	}
+	// for powerpacks
 	void FixedUpdate () 
 	{
 		PowerPacks();
@@ -144,7 +145,7 @@ public class Player : MonoBehaviour
 		}
 	}
 
-
+	// powerpack controller
 	private void PowerPacks()
 	{
 		if (Input.GetKeyDown (KeyCode.Alpha0)) 
@@ -294,7 +295,7 @@ public class Player : MonoBehaviour
 		}
 	}
 	
-	// 
+	// started from last position
 	protected IEnumerator MakeThePlayerLeaveStageRoutine()
 	{
 		playerTexRend.material = playerMaterials[14];
