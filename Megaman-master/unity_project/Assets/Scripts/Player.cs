@@ -13,6 +13,9 @@ public class Player : MonoBehaviour
 	public int p_score;
 	public GameObject power;
 	public int count = 0;
+	public int i;
+	public int j;
+	public int[] p_array = {1, 2, 4, 6, 8, 0};
 	private Text theText;
 
 	// Unity Editor Variables
@@ -79,6 +82,10 @@ public class Player : MonoBehaviour
 	// Use this for initialization 
 	protected void Start()
 	{
+		j = p_array.Length - 1;
+		i = 0; 
+		Debug.Log ("i=" +i);
+		Debug.Log ("j=" +j);
 		p_score = PlayerPrefs.GetInt ("P_Score");
 		IsPlayerInactive = false;
 		health.HealthbarPosition = new Vector2(10,10);
@@ -99,7 +106,7 @@ public class Player : MonoBehaviour
 			movement.HandleMovement();
 
 			// Handle shooting
-			if((Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Z)) || (Input.GetKeyDown(KeyCode.A)) || (Input.GetKeyDown(KeyCode.B)) && shooting.CanShoot == true)
+			if((Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Z)) || (Input.GetKeyDown(KeyCode.B)) && shooting.CanShoot == true)
 			{   
 				shooting.Shoot(movement.IsTurningLeft);
 				GameEngine.SoundManager.Play(AirmanLevelSounds.SHOOTING);
@@ -118,19 +125,41 @@ public class Player : MonoBehaviour
 			// Assign the appropriate texture to the player...
 			AssignTexture();
 
-			if (Input.GetKeyDown (KeyCode.S)) 
+			if (Input.GetKeyDown (KeyCode.A)) 
 			{
+				Debug.Log ("power array Length - A");
+				Debug.Log (p_array.Length);
+				count = p_array[j];
 				GameObject.Find("powerpack").GetComponent<Text>().text = count.ToString();
 				GameObject.Find ("powerpack").transform.localScale = new Vector3(1 ,1 ,1);
-				if(count == 9)
+				if(j > 0)
 				{
-					
-					count = 0;
+					Debug.Log (count);
+					j = j - 1;
 				}
 				else
 				{
-					Debug.Log ("display");
-					count = count + 1;
+					j = p_array.Length-1;
+
+				}
+				StartCoroutine(PowerLayers ());
+			}
+
+			if (Input.GetKeyDown (KeyCode.S)) 
+			{
+				Debug.Log ("power array Length - S");
+				Debug.Log (p_array.Length);
+				count = p_array[i];
+				GameObject.Find("powerpack").GetComponent<Text>().text = count.ToString();
+				GameObject.Find ("powerpack").transform.localScale = new Vector3(1 ,1 ,1);
+				if(i == p_array.Length-1)
+				{
+					i = 0;
+				}
+				else
+				{
+					Debug.Log (count);
+					i = i + 1;
 				}
 				StartCoroutine(PowerLayers ());
 			}
