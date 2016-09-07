@@ -90,7 +90,7 @@ public class powerscript : MonoBehaviour {
 	}
 	IEnumerator PowerLayers()
 	{
-		yield return new WaitForSeconds(5);
+		yield return new WaitForSeconds(10);
 		GameObject.Find ("powerpack").transform.localScale = new Vector3(0, 0, 0);
 	}
 	
