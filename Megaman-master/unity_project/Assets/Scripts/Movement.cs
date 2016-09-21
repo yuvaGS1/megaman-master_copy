@@ -17,12 +17,15 @@ public class Movement : MonoBehaviour
 	public Vector3 CheckPointPosition 	{ get; set; }
 	
 	// Protected Instance Variables
+	public int jumpaccess = 0;
+	float lastClickTime = 0f;
+	float catchTime = 1.25f;
 	protected CharacterController charController;
 	protected bool cheating = false;
-	protected float gravity = 40f;	 			// Downward force
-	protected float terminalVelocity = 20f;	// Max downward speed
-	protected float jumpSpeed = 20f;			// Upward speed
-	protected float moveSpeed = 10f;			// Left/Right speed
+	protected float gravity = 40f;			// Downward force
+	protected float terminalVelocity = 40f;	// Max downward speed
+	protected float jumpSpeed = 25f;			// Upward speed
+	protected float moveSpeed = 15f;			// Left/Right speed
 	protected float verticalVelocity;
 	protected float hurtingForce = 2.0f;
 	protected Vector3 moveVector = Vector3.zero;
@@ -119,7 +122,7 @@ public class Movement : MonoBehaviour
 		float deadZone = 0.01f;
 		verticalVelocity = moveVector.y;
 		moveVector = Vector3.zero;
-		
+
 		if (Input.GetAxis("Horizontal") > deadZone)
 		{
 			IsWalking = true;
@@ -136,16 +139,76 @@ public class Movement : MonoBehaviour
 		{
 			IsWalking = false;
 		}
-		
+
 		// Vertical movement...
-		if (Input.GetAxis("Vertical") > 0.0f)
+		if(Input.GetKeyDown(KeyCode.UpArrow))
 		{
-			if (charController.isGrounded)
+			jumpaccess = jumpaccess + 1;
+			if(jumpaccess == 1)
+			{
+				if (charController.isGrounded )
+				{
+					IsJumping = true;
+					verticalVelocity = jumpSpeed * 0.5f;
+				}
+			}
+			else if(jumpaccess == 2)
 			{
 				IsJumping = true;
 				verticalVelocity = jumpSpeed;
 			}
+			else
+			{
+				jump3();
+				/*yield return new WaitForSeconds (10);
+				jumpaccess = 0;*/
+			}
 		}
+
+
+		/*
+			 // Vertical movement...
+		if(Input.GetKeyDown(KeyCode.UpArrow))
+		{
+			jumpaccess = !jumpaccess;
+			if(jumpaccess)
+			{
+				if (charController.isGrounded )
+				{
+					IsJumping = true;
+					verticalVelocity = jumpSpeed;
+					jumpaccess = !jumpaccess;
+				}
+			}
+			else
+			{
+				if (charController.isGrounded)
+				{
+					IsJumping = true;
+					verticalVelocity = jumpSpeed * 1.2f;
+				}
+			}
+
+		}*/
+			
+		/*
+		// Vertical movement...
+		if (Input.GetAxis("Vertical") > 0.0f && Input.GetAxis("Vertical") < 0.1f)
+		{
+			if (charController.isGrounded)
+			{
+				IsJumping = true;
+				verticalVelocity = jumpSpeed * 0.8f;
+			}
+		}
+		if (Input.GetAxis("Vertical") > 0.1f && Input.GetAxis("Vertical") < 0.5f)
+		{
+			IsJumping = true;
+			verticalVelocity = jumpSpeed * 0.8f;
+
+		}
+		*/
+
 
 		// If there is a collision above...
 		if ((charController.collisionFlags & CollisionFlags.Above) != 0)
@@ -155,8 +218,16 @@ public class Movement : MonoBehaviour
 	}
 
 	#endregion
-	
-	
+		
+	void jump3()
+	{
+		StartCoroutine (jump4 ());
+	}
+	IEnumerator jump4()
+	{
+		yield return new WaitForSeconds (3);
+		jumpaccess = 0;
+	}
 	#region Public Functions
 	
 	//
