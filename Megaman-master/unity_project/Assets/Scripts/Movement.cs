@@ -17,9 +17,6 @@ public class Movement : MonoBehaviour
 	public Vector3 CheckPointPosition 	{ get; set; }
 	
 	// Protected Instance Variables
-	public int jumpaccess = 0;
-	float lastClickTime = 0f;
-	float catchTime = 1.25f;
 	protected CharacterController charController;
 	protected bool cheating = false;
 	protected float gravity = 40f;			// Downward force
@@ -140,74 +137,18 @@ public class Movement : MonoBehaviour
 			IsWalking = false;
 		}
 
+
 		// Vertical movement...
-		if(Input.GetKeyDown(KeyCode.UpArrow))
-		{
-			jumpaccess = jumpaccess + 1;
-			if(jumpaccess == 1)
-			{
-				if (charController.isGrounded )
-				{
-					IsJumping = true;
-					verticalVelocity = jumpSpeed * 0.5f;
-				}
-			}
-			else if(jumpaccess == 2)
-			{
-				IsJumping = true;
-				verticalVelocity = jumpSpeed;
-			}
-			else
-			{
-				jump3();
-				/*yield return new WaitForSeconds (10);
-				jumpaccess = 0;*/
-			}
-		}
-
-
-		/*
-			 // Vertical movement...
-		if(Input.GetKeyDown(KeyCode.UpArrow))
-		{
-			jumpaccess = !jumpaccess;
-			if(jumpaccess)
-			{
-				if (charController.isGrounded )
-				{
-					IsJumping = true;
-					verticalVelocity = jumpSpeed;
-					jumpaccess = !jumpaccess;
-				}
-			}
-			else
-			{
-				if (charController.isGrounded)
-				{
-					IsJumping = true;
-					verticalVelocity = jumpSpeed * 1.2f;
-				}
-			}
-
-		}*/
-			
-		/*
-		// Vertical movement...
-		if (Input.GetAxis("Vertical") > 0.0f && Input.GetAxis("Vertical") < 0.1f)
+		if (Input.GetAxis("Vertical") > 0.0f)
 		{
 			if (charController.isGrounded)
 			{
 				IsJumping = true;
-				verticalVelocity = jumpSpeed * 0.8f;
+				verticalVelocity = jumpSpeed;
 			}
 		}
-		if (Input.GetAxis("Vertical") > 0.1f && Input.GetAxis("Vertical") < 0.5f)
-		{
-			IsJumping = true;
-			verticalVelocity = jumpSpeed * 0.8f;
 
-		}
-		*/
+
 
 
 		// If there is a collision above...
@@ -218,16 +159,7 @@ public class Movement : MonoBehaviour
 	}
 
 	#endregion
-		
-	void jump3()
-	{
-		StartCoroutine (jump4 ());
-	}
-	IEnumerator jump4()
-	{
-		yield return new WaitForSeconds (3);
-		jumpaccess = 0;
-	}
+
 	#region Public Functions
 	
 	//

@@ -4,17 +4,20 @@ using System;
 using UnityEngine.UI;
 
 public class Score : MonoBehaviour {
-	private Text theText;
+	private Text thetext;
+
 	// Use this for initialization
-	
 	void Start () {
-		theText = GetComponent<Text>();
+		thetext = GetComponent<Text>();
+	//	string S_User = PlayerPrefs.GetString ("username");
+
 	//	Debug.Log(PlayerPrefs.GetInt ("score"));
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		//PlayerPrefs.SetInt ("P_Score", 0);
-		theText.text = "" + Mathf.Round (PlayerPrefs.GetInt ("P_Score"));
+		thetext.text = "" + Mathf.Round (PlayerPrefs.GetInt ("P_Score"));
+
 	}
 }
