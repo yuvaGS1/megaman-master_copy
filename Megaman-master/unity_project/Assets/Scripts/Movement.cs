@@ -26,7 +26,7 @@ public class Movement : MonoBehaviour
 	protected float verticalVelocity;
 	protected float hurtingForce = 2.0f;
 	protected Vector3 moveVector = Vector3.zero;
-	protected Vector3 startPosition = new Vector3(13.34303f, 11.51588f, 0f);
+	protected Vector3 startPosition = new Vector3(13.34303f, 25.51588f, 0f);
 
 	#endregion
 	
